@@ -1,0 +1,204 @@
+import numpy as np
+
+from sklearn.linear_model import Lasso, Ridge
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import ExtraTreesRegressor, GradientBoostingRegressor, RandomForestRegressor
+from catboost import CatBoostRegressor
+from xgboost import XGBRegressor
+from lightgbm import LGBMRegressor
+
+
+models = {
+    'Lasso': (
+        Lasso(),
+        {
+            'model__alpha': np.logspace(-4, 0, 20)
+        }
+
+        # best params
+        # {
+        #     'model__alpha': [1.0],
+        # }
+    ),
+    
+    'Ridge': (
+        Ridge(),
+        {
+            'model__alpha': np.logspace(-4, 0, 20)
+        }
+
+        # best params
+        # {
+        #     'model__alpha': [0.00042813323987193956].
+        # }
+    ),
+
+    'tree': (
+        DecisionTreeRegressor(random_state=42),
+        {
+            'model__criterion': ['squared_error', 'friedman_mse'],
+            'model__max_depth': np.linspace(3, 15, 10, dtype=int),
+            'model__min_samples_leaf': np.linspace(1, 10, 10, dtype=int),
+            'model__min_samples_split': np.linspace(2, 20, 10, dtype=int),
+            'model__max_leaf_nodes': [None, 5, 10, 20, 50, 100],
+        }
+
+        # best params
+        # {
+        #     'model__criterion': 'friedman_mse',
+        #     'model__max_depth': np.int64(9),
+        #     'model__max_leaf_nodes': 100,
+        #     'model__min_samples_leaf': np.int64(2),
+        #     'model__min_samples_split': np.int64(20)
+        # }
+    ),
+
+    'forest': (
+        RandomForestRegressor(random_state=42),
+        {
+            'model__n_estimators': [50, 100, 200, 300],
+            'model__max_depth': [None, 5, 10, 15, 20],
+            'model__min_samples_leaf': [1, 2, 4],
+            'model__min_samples_split': [2, 5, 10],
+            'model__max_features': ['sqrt', 'log2', 0.8, 1.0],
+        }
+
+        # best params
+        # {
+        #     'model__max_depth': [20], 
+        #     'model__max_features': [0.8], 
+        #     'model__min_samples_leaf': [2], 
+        #     'model__min_samples_split': [2], 
+        #     'model__n_estimators': [200],
+        # }
+    ),
+
+    'extra_trees': (
+        ExtraTreesRegressor(random_state=42),
+        {
+            'model__n_estimators': [50, 100, 200, 300],
+            'model__max_depth': [None, 5, 10, 15, 20],
+            'model__min_samples_leaf': [1, 2, 4],
+            'model__min_samples_split': [2, 5, 10],
+            'model__max_features': ['sqrt', 'log2', 0.8, 1.0],
+        }
+
+        # best params
+        # {
+        #     'model__max_depth': [20],
+        #     'model__max_features': [1.0],
+        #     'model__min_samples_leaf': [2],
+        #     'model__min_samples_split': [5],
+        #     'model__n_estimators': [200],
+        # }
+    ),
+
+    'gradient_boosting': (
+        GradientBoostingRegressor(random_state=42),
+        {
+            'model__n_estimators': [50, 100, 200, 500],
+            'model__learning_rate': [0.01, 0.05, 0.1, 0.2],
+            'model__max_depth': [3, 5, 7],
+            'model__subsample': [0.6, 0.8, 1.0],
+            'model__max_features': ['sqrt', 'log2', None],
+        }
+
+        # best params
+        # {
+        #     'model__learning_rate': [0.05],
+        #     'model__max_depth': [3],
+        #     'model__max_features': ['sqrt'],
+        #     'model__n_estimators': [500],
+        #     'model__subsample': [0.8],
+        # }
+    ),
+
+    'XGBRegressor' :( 
+        XGBRegressor( 
+            objective="reg:squarederror", 
+            eval_metric="rmse",
+            random_state=42,
+            n_jobs=1,
+            verbosity=0,
+        ),
+        {
+            'model__n_estimators': [50, 100, 200, 300],
+            'model__learning_rate': [0.01, 0.05, 0.1, 0.2],
+            'model__max_depth': [3, 5, 7, 9],
+            'model__subsample': [0.6, 0.8, 1.0],
+            'model__colsample_bytree': [0.6, 0.8, 1.0],
+            'model__gamma': [0, 0.1, 0.2],
+        },
+
+        # best params
+        # {
+        #     'model__colsample_bytree': [0.6],
+        #     'model__gamma': [0],
+        #     'model__learning_rate': [0.05],
+        #     'model__max_depth': [3],
+        #     'model__n_estimators': [300],
+        #     'model__subsample': [0.6],
+        # }
+    ),
+
+    'LGBMRegressor':( 
+        LGBMRegressor( 
+            objective="regression", 
+            random_state=42,
+            n_jobs=1,
+            verbose=-1,
+        ),
+        {
+            'model__n_estimators': [50, 100, 200, 300],
+            'model__learning_rate': [0.01, 0.05, 0.1, 0.2],
+            'model__max_depth': [-1, 3, 5, 7, 9],
+            'model__num_leaves': [20, 31, 40],
+            'model__min_child_samples': [20, 30, 40],
+            'model__subsample': [0.6, 0.8, 1.0],
+            'model__colsample_bytree': [0.6, 0.8, 1.0],
+        },
+
+        # best params
+        # {
+        #     'model__colsample_bytree': [0.6],
+        #     'model__learning_rate': [0.05],
+        #     'model__max_depth': [5],
+        #     'model__min_child_samples': [20],
+        #     'model__n_estimators': [200],
+        #     'model__num_leaves': [20],
+        #     'model__subsample': [0.6],
+        # }
+    ),
+
+    'CatBoostRegressor':(
+        CatBoostRegressor(
+            loss_function="RMSE",
+            eval_metric="RMSE",
+            random_seed=42,
+            thread_count=1,
+            verbose=0,
+            allow_writing_files=False,
+            nan_mode='Min'
+        ),
+        {
+            'model__iterations': [100, 200, 300, 500, 1000],
+            'model__learning_rate': [0.01, 0.05, 0.1, 0.2],
+            'model__depth': [3, 5, 7, 9],
+            'model__l2_leaf_reg': [1, 3, 5, 10],
+            'model__random_strength': [0.1, 0.5, 1, 2],
+            'model__border_count': [32, 64, 128, 254],
+        }
+
+        # 'model__iterations': [100, 200, 300, 500],
+        # 'model__learning_rate': [0.01, 0.05, 0.1, 0.2],
+        # 'model__depth': [3, 5, 7, 9],
+        # 'model__l2_leaf_reg': [1, 3, 5, 7],
+        # 'model__random_strength': [0.1, 0.5, 1, 2],
+        # 'model__border_count': [32, 64, 128],
+
+        # best params
+        # {
+
+        # }
+    ),
+}
