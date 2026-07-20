@@ -8,14 +8,14 @@ from sklearn.impute import SimpleImputer
 # from sklearn.feature_selection import VarianceThreshold
 
 
-def preprocessor_function(X, categorical_colums, numeric_colums):
+def create_preprocessor(X, categorical_columns, numeric_columns):
     low_card_cols = [
-        col for col in categorical_colums
+        col for col in categorical_columns
         if X[col].nunique() < 5
     ]
 
     high_card_cols = [
-        col for col in categorical_colums
+        col for col in categorical_columns
         if X[col].nunique() >= 5
     ]
 
@@ -46,7 +46,7 @@ def preprocessor_function(X, categorical_colums, numeric_colums):
                 random_state=42
             ))]), high_card_cols),
 
-            ('numeric', numeric_transformer, numeric_colums)
+            ('numeric', numeric_transformer, numeric_columns)
         ],
         verbose_feature_names_out=False
     )

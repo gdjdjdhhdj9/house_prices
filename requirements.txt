@@ -7,3 +7,6 @@ seaborn==0.13.2
 catboost==1.2.10
 xgboost==3.2.0
 lightgbm==4.6.0
+tqdm==4.67.3
+torch==2.12.1+cpu
+omegaconf==2.3.1

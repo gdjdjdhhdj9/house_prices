@@ -12,24 +12,40 @@ models = {
     'Lasso': (
         Lasso(),
         {
-            'model__alpha': np.logspace(-4, 0, 20)
+            'model__alpha': [1e-4, 1e-3, 1e-2, 1e-1, 1.0],
+            'model__max_iter': [1000, 5000],
+            'model__tol': [1e-4, 1e-5],
+            'model__positive': [False],
+            'model__selection': ['cyclic', 'random'],
         }
 
         # best params
         # {
-        #     'model__alpha': [1.0],
+            # 'model__alpha': [0.0001],
+            # 'model__max_iter': [5000],
+            # 'model__positive': [False],
+            # 'model__selection': ['random'],
+            # 'model__tol': [1e-05],
         # }
     ),
     
     'Ridge': (
         Ridge(),
         {
-            'model__alpha': np.logspace(-4, 0, 20)
+            'model__alpha': [1e-4, 1e-3, 1e-2, 1e-1, 1.0],
+            'model__fit_intercept': [True],
+            'model__max_iter': [1000, 5000],
+            'model__tol': [1e-4, 1e-5],
+            'model__solver': ['auto', 'svd', 'cholesky'],
         }
 
         # best params
         # {
-        #     'model__alpha': [0.00042813323987193956].
+            # 'model__alpha': [1.0],
+            # 'model__fit_intercept': [True],
+            # 'model__max_iter': [1000],
+            # 'model__solver': ['svd'],
+            # 'model__tol': [0.0001],
         # }
     ),
 
@@ -37,19 +53,19 @@ models = {
         DecisionTreeRegressor(random_state=42),
         {
             'model__criterion': ['squared_error', 'friedman_mse'],
-            'model__max_depth': np.linspace(3, 15, 10, dtype=int),
-            'model__min_samples_leaf': np.linspace(1, 10, 10, dtype=int),
-            'model__min_samples_split': np.linspace(2, 20, 10, dtype=int),
-            'model__max_leaf_nodes': [None, 5, 10, 20, 50, 100],
+            'model__max_depth': [3, 5, 7, 9, None],
+            'model__min_samples_split': [2, 5, 10],
+            'model__min_samples_leaf': [1, 2, 4, 8],
+            'model__max_leaf_nodes': [None, 10, 20, 50, 100],
         }
 
         # best params
         # {
-        #     'model__criterion': 'friedman_mse',
-        #     'model__max_depth': np.int64(9),
-        #     'model__max_leaf_nodes': 100,
-        #     'model__min_samples_leaf': np.int64(2),
-        #     'model__min_samples_split': np.int64(20)
+            # 'model__criterion': ['friedman_mse'],
+            # 'model__max_depth': [7],
+            # 'model__max_leaf_nodes': [100],
+            # 'model__min_samples_leaf': [8],
+            # 'model__min_samples_split': [2]
         # }
     ),
 
@@ -119,7 +135,7 @@ models = {
             eval_metric="rmse",
             random_state=42,
             n_jobs=1,
-            verbosity=0,
+            verbosity=False,
         ),
         {
             'model__n_estimators': [50, 100, 200, 300],
@@ -146,7 +162,7 @@ models = {
             objective="regression", 
             random_state=42,
             n_jobs=1,
-            verbose=-1,
+            verbose=False,
         ),
         {
             'model__n_estimators': [50, 100, 200, 300],
@@ -176,7 +192,7 @@ models = {
             eval_metric="RMSE",
             random_seed=42,
             thread_count=1,
-            verbose=0,
+            verbose=False,
             allow_writing_files=False,
             nan_mode='Min'
         ),
@@ -198,7 +214,7 @@ models = {
 
         # best params
         # {
-
+                # [CV 4/5] END model__border_count=32, model__depth=5, model__iterations=500, model__l2_leaf_reg=3, model__learning_rate=0.1, model__random_strength=1;, score=-19237.159 total time=  10.1s
         # }
     ),
 }
