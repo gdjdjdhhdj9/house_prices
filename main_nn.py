@@ -23,7 +23,7 @@ print("Данные готовы к предсказанию.")
 
 model = MyNN(X_test_tensor_final.shape[1], 1).to(device)
 
-model.load_state_dict(torch.load(f'{Path(config.paths.path_to_best_nn_model)}/best_nn_model.pt', map_location=device))
+model.load_state_dict(torch.load(f'{Path(config.paths.path_to_best_nn_model)}/best_model.pt', map_location=device))
 model.eval()
 with torch.no_grad():
     # Получаем предсказания

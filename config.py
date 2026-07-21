@@ -1,17 +1,21 @@
 from omegaconf import OmegaConf
+from pathlib import Path
+
+
+BASE_DIR = Path(__file__).resolve().parent
 
 config = {
     'general': {
         'seed': 42,
     },
     'paths': {
-        'path_to_train_data': 'D:/проекты/house_price/data/train.csv',
-        'path_to_test_data': 'D:/проекты/house_price/data/test.csv',
-        'path_to_best_nn_model': 'D:/проекты/house_price/models/nn',
-        'path_to_best_ml_model': 'D:/проекты/house_price/models/ml',
-        'path_to_preprocessor':'D:/проекты/house_price/models/nn/preprocessor.pkl',
-        'path_to_ml_submission':'D:/проекты/house_price/data/ml_submission/submission.csv',
-        'path_to_nn_submission':'D:/проекты/house_price/data/nn_submission/submission.csv',
+        'path_to_train_data': BASE_DIR / 'data' / 'train.csv',
+        'path_to_test_data': BASE_DIR / 'data' / 'test.csv',
+        'path_to_best_nn_model': BASE_DIR / 'models' / 'nn',
+        'path_to_best_ml_model': BASE_DIR / 'models' / 'ml',
+        'path_to_preprocessor': BASE_DIR / 'models' / 'nn' / 'preprocessor.pkl',
+        'path_to_ml_submission': BASE_DIR / 'data' / 'ml_submission' / 'submission.csv',
+        'path_to_nn_submission': BASE_DIR / 'data' / 'nn_submission' / 'submission.csv',
 
     },
     'training': {
