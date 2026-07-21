@@ -24,3 +24,5 @@ submission = pd.DataFrame({
 })
 
 submission.to_csv(Path(config.paths.path_to_ml_submission), index=False)
+
+print("Файл submission.csv успешно создан!")

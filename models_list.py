@@ -21,11 +21,11 @@ models = {
 
         # best params
         # {
-            # 'model__alpha': [0.0001],
-            # 'model__max_iter': [5000],
-            # 'model__positive': [False],
-            # 'model__selection': ['random'],
-            # 'model__tol': [1e-05],
+        #     'model__alpha': [0.0001],
+        #     'model__max_iter': [5000],
+        #     'model__positive': [False],
+        #     'model__selection': ['random'],
+        #     'model__tol': [1e-05],
         # }
     ),
     
@@ -41,11 +41,11 @@ models = {
 
         # best params
         # {
-            # 'model__alpha': [1.0],
-            # 'model__fit_intercept': [True],
-            # 'model__max_iter': [1000],
-            # 'model__solver': ['svd'],
-            # 'model__tol': [0.0001],
+        #     'model__alpha': [1.0],
+        #     'model__fit_intercept': [True],
+        #     'model__max_iter': [1000],
+        #     'model__solver': ['svd'],
+        #     'model__tol': [0.0001],
         # }
     ),
 
@@ -61,11 +61,11 @@ models = {
 
         # best params
         # {
-            # 'model__criterion': ['friedman_mse'],
-            # 'model__max_depth': [7],
-            # 'model__max_leaf_nodes': [100],
-            # 'model__min_samples_leaf': [8],
-            # 'model__min_samples_split': [2]
+        #     'model__criterion': ['friedman_mse'],
+        #     'model__max_depth': [7],
+        #     'model__max_leaf_nodes': [100],
+        #     'model__min_samples_leaf': [8],
+        #     'model__min_samples_split': [2]
         # }
     ),
 
@@ -135,7 +135,7 @@ models = {
             eval_metric="rmse",
             random_state=42,
             n_jobs=1,
-            verbosity=False,
+            verbosity=0,
         ),
         {
             'model__n_estimators': [50, 100, 200, 300],
@@ -162,7 +162,7 @@ models = {
             objective="regression", 
             random_state=42,
             n_jobs=1,
-            verbose=False,
+            verbose=-1,
         ),
         {
             'model__n_estimators': [50, 100, 200, 300],
@@ -197,24 +197,22 @@ models = {
             nan_mode='Min'
         ),
         {
-            'model__iterations': [100, 200, 300, 500, 1000],
+            'model__iterations': [100, 200, 300, 500],
             'model__learning_rate': [0.01, 0.05, 0.1, 0.2],
             'model__depth': [3, 5, 7, 9],
-            'model__l2_leaf_reg': [1, 3, 5, 10],
+            'model__l2_leaf_reg': [1, 3, 5, 7],
             'model__random_strength': [0.1, 0.5, 1, 2],
-            'model__border_count': [32, 64, 128, 254],
-        }
-
-        # 'model__iterations': [100, 200, 300, 500],
-        # 'model__learning_rate': [0.01, 0.05, 0.1, 0.2],
-        # 'model__depth': [3, 5, 7, 9],
-        # 'model__l2_leaf_reg': [1, 3, 5, 7],
-        # 'model__random_strength': [0.1, 0.5, 1, 2],
-        # 'model__border_count': [32, 64, 128],
+            'model__border_count': [32, 64, 128],
+        },
 
         # best params
         # {
-                # [CV 4/5] END model__border_count=32, model__depth=5, model__iterations=500, model__l2_leaf_reg=3, model__learning_rate=0.1, model__random_strength=1;, score=-19237.159 total time=  10.1s
+        #     'model__border_count': [32], 
+        #     'model__depth': [5], 
+        #     'model__iterations': [500], 
+        #     'model__l2_leaf_reg': [1], 
+        #     'model__learning_rate': [0.1], 
+        #     'model__random_strength': [2],
         # }
     ),
 }
